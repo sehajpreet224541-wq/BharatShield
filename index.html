@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BharatShield — Investor Safety</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#687386;--primary:#155eef;--primary2:#0b4bc4;--border:#e3e8f0;--danger:#c62828;--warn:#9a6700;--good:#18794e}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+header{background:#101828;color:#fff;padding:18px 20px}.nav{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.5px}.logo span{color:#69a3ff}
+select{padding:9px 12px;border-radius:10px;border:1px solid #344054;background:#1d2939;color:#fff}
+main{max-width:1050px;margin:0 auto;padding:34px 18px 60px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}.heroCard,.card{background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 8px 28px rgba(16,24,40,.06)}
+.heroCard{padding:34px}.hero h1{font-size:42px;line-height:1.05;margin:0 0 14px}.hero p{font-size:17px;line-height:1.6;color:var(--muted);max-width:650px}
+.badge{display:inline-block;background:#eaf2ff;color:#155eef;border-radius:999px;padding:7px 11px;font-weight:700;font-size:13px;margin-bottom:16px}
+.heroSide{padding:28px;background:linear-gradient(145deg,#0b4bc4,#155eef);color:white}.heroSide h3{margin-top:0}.heroSide p{color:#dbe8ff}.mini{display:flex;gap:12px;align-items:flex-start;margin:17px 0}.num{width:30px;height:30px;border-radius:50%;background:#fff;color:#155eef;display:grid;place-items:center;font-weight:800;flex:none}
+.card{padding:25px;margin-top:22px}.card h2{margin:0 0 8px;font-size:22px}.sub{color:var(--muted);margin:0 0 18px}
+textarea{width:100%;min-height:155px;resize:vertical;border:1px solid #cfd7e3;border-radius:14px;padding:15px;font:inherit;outline:none}
+textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #dce9ff}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}
+button{border:0;border-radius:11px;padding:12px 17px;font:inherit;font-weight:750;cursor:pointer}
+.primary{background:var(--primary);color:#fff}.primary:hover{background:var(--primary2)}.secondary{background:#eef2f7;color:#344054}
+.example{font-size:13px;color:var(--muted);margin-top:12px}.example button{padding:7px 10px;font-size:12px;margin:4px 3px 0 0}
+.hidden{display:none}.resultHeader{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
+.level{font-weight:800;padding:8px 12px;border-radius:999px}.level.red{background:#fdecec;color:var(--danger)}.level.yellow{background:#fff4cc;color:var(--warn)}.level.green{background:#e8f7ef;color:var(--good)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:18px}.flag{border:1px solid var(--border);border-radius:14px;padding:15px}.flag b{display:block;margin-bottom:6px}.flag p{margin:0;color:var(--muted);line-height:1.45;font-size:14px}
+.next{margin-top:18px;background:#f8fafc;border-radius:15px;padding:18px;border:1px solid var(--border)}.next h3{margin:0 0 8px}.next ol{margin:8px 0 0;padding-left:21px;color:#475467;line-height:1.7}
+.privacy{font-size:13px;color:var(--muted);margin-top:13px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero h1{font-size:34px}.grid{grid-template-columns:1fr}.heroCard{padding:25px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">Bharat<span>Shield</span></div>
+<select id="lang" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="pa">ਪੰਜਾਬੀ</option></select></div></header>
+
+<main>
+<section class="hero">
+  <div class="heroCard">
+    <span class="badge">Investor Resilience • MVP</span>
+    <h1>Before you trust it, check it.</h1>
+    <p id="heroText">BharatShield helps first-time investors understand warning signs in financial messages and claims before they act.</p>
+    <button class="primary" onclick="document.getElementById('message').focus()">Check a message</button>
+  </div>
+  <div class="heroCard heroSide">
+    <h3 id="howTitle">How it works</h3>
+    <div class="mini"><div class="num">1</div><div id="s1">Paste a financial message or claim.</div></div>
+    <div class="mini"><div class="num">2</div><div id="s2">Detect explainable warning patterns.</div></div>
+    <div class="mini"><div class="num">3</div><div id="s3">Understand what to verify next.</div></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 id="checkTitle">Check financial content</h2>
+  <p class="sub" id="checkSub">Paste the message you received. BharatShield analyses the supplied text locally in this prototype.</p>
+  <textarea id="message" placeholder="Example: Guaranteed 30% return. Join our VIP group today and pay ₹5,000 to get access."></textarea>
+  <div class="actions">
+    <button class="primary" onclick="analyze()">Analyze</button>
+    <button class="secondary" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="example">
+    <span id="exLabel">Try a demo:</span>
+    <button class="secondary" onclick="loadExample(0)">Guaranteed return</button>
+    <button class="secondary" onclick="loadExample(1)">Educational content</button>
+    <button class="secondary" onclick="loadExample(2)">Urgent payment</button>
+  </div>
+  <div class="privacy" id="privacy">Privacy by design: this MVP does not read SMS, OTPs, bank accounts or other device data. It analyses only the text you submit.</div>
+</section>
+
+<section id="result" class="card hidden">
+  <div class="resultHeader">
+    <div><h2 id="resultTitle">Analysis</h2><p class="sub" id="resultSub"></p></div>
+    <span id="level" class="level"></span>
+  </div>
+  <div id="flags" class="grid"></div>
+  <div class="next">
+    <h3 id="nextTitle">What should you do?</h3>
+    <ol id="nextSteps"></ol>
+  </div>
+  <p class="privacy" id="disclaimer">This is a content-risk assessment, not a determination that a person, organisation or offer is fraudulent, and it is not investment advice.</p>
+</section>
+
+<div class="footer">BharatShield • Public-good investor resilience prototype</div>
+</main>
+
+<script>
+const i18n={
+en:{hero:"BharatShield helps first-time investors understand warning signs in financial messages and claims before they act.",how:"How it works",s1:"Paste a financial message or claim.",s2:"Detect explainable warning patterns.",s3:"Understand what to verify next.",check:"Check financial content",sub:"Paste the message you received. BharatShield analyses the supplied text locally in this prototype.",ph:"Example: Guaranteed 30% return. Join our VIP group today and pay ₹5,000 to get access.",try:"Try a demo:",an:"Analyze",cl:"Clear",res:"Analysis",next:"What should you do?",privacy:"Privacy by design: this MVP does not read SMS, OTPs, bank accounts or other device data. It analyses only the text you submit.",disc:"This is a content-risk assessment, not a determination that a person, organisation or offer is fraudulent, and it is not investment advice.",low:"Low apparent concern",verify:"Needs verification",high:"Multiple warning signs"},
+hi:{hero:"BharatShield नए निवेशकों को वित्तीय संदेशों और दावों में चेतावनी संकेत समझने में मदद करता है, ताकि वे कार्रवाई से पहले जानकारी जांच सकें।",how:"यह कैसे काम करता है",s1:"वित्तीय संदेश या दावा डालें।",s2:"समझने योग्य चेतावनी संकेत खोजें।",s3:"जानें कि आगे क्या सत्यापित करना है।",check:"वित्तीय सामग्री जांचें",sub:"मिला हुआ संदेश डालें। इस प्रोटोटाइप में विश्लेषण आपके द्वारा दिए गए टेक्स्ट पर स्थानीय रूप से होता है।",ph:"उदाहरण: 30% गारंटीड रिटर्न। आज हमारे VIP ग्रुप में शामिल हों और ₹5,000 भुगतान करें।",try:"डेमो आज़माएं:",an:"विश्लेषण करें",cl:"साफ करें",res:"विश्लेषण",next:"आपको क्या करना चाहिए?",privacy:"गोपनीयता: यह MVP SMS, OTP, बैंक खाते या डिवाइस डेटा नहीं पढ़ता। यह केवल आपके द्वारा भेजे गए टेक्स्ट का विश्लेषण करता है।",disc:"यह सामग्री-जोखिम आकलन है, किसी व्यक्ति, संस्था या ऑफर को धोखाधड़ी साबित करने का निर्णय नहीं है और यह निवेश सलाह नहीं है।",low:"कम स्पष्ट चिंता",verify:"सत्यापन आवश्यक",high:"कई चेतावनी संकेत"},
+pa:{hero:"BharatShield ਨਵੇਂ ਨਿਵੇਸ਼ਕਾਂ ਨੂੰ ਵਿੱਤੀ ਸੁਨੇਹਿਆਂ ਅਤੇ ਦਾਵਿਆਂ ਵਿੱਚ ਚੇਤਾਵਨੀ ਸੰਕੇਤ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ, ਤਾਂ ਜੋ ਉਹ ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਜਾਣਕਾਰੀ ਦੀ ਜਾਂਚ ਕਰ ਸਕਣ।",how:"ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",s1:"ਵਿੱਤੀ ਸੁਨੇਹਾ ਜਾਂ ਦਾਅਵਾ ਪਾਓ।",s2:"ਸਮਝਣ ਯੋਗ ਚੇਤਾਵਨੀ ਸੰਕੇਤ ਲੱਭੋ।",s3:"ਜਾਣੋ ਕਿ ਅੱਗੇ ਕੀ ਜਾਂਚਣਾ ਹੈ।",check:"ਵਿੱਤੀ ਸਮੱਗਰੀ ਜਾਂਚੋ",sub:"ਮਿਲਿਆ ਸੁਨੇਹਾ ਪਾਓ। ਇਸ ਪ੍ਰੋਟੋਟਾਈਪ ਵਿੱਚ ਵਿਸ਼ਲੇਸ਼ਣ ਤੁਹਾਡੇ ਦਿੱਤੇ ਟੈਕਸਟ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਹੁੰਦਾ ਹੈ।",ph:"ਉਦਾਹਰਨ: 30% ਗਾਰੰਟੀਡ ਰਿਟਰਨ। ਅੱਜ ਸਾਡੇ VIP ਗਰੁੱਪ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ ਅਤੇ ₹5,000 ਭੁਗਤਾਨ ਕਰੋ।",try:"ਡੈਮੋ ਅਜ਼ਮਾਓ:",an:"ਵਿਸ਼ਲੇਸ਼ਣ ਕਰੋ",cl:"ਸਾਫ਼ ਕਰੋ",res:"ਵਿਸ਼ਲੇਸ਼ਣ",next:"ਤੁਹਾਨੂੰ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",privacy:"ਪਰਾਈਵੇਸੀ: ਇਹ MVP SMS, OTP, ਬੈਂਕ ਖਾਤਿਆਂ ਜਾਂ ਡਿਵਾਈਸ ਡੇਟਾ ਨੂੰ ਨਹੀਂ ਪੜ੍ਹਦਾ। ਇਹ ਸਿਰਫ਼ ਤੁਹਾਡੇ ਵੱਲੋਂ ਭੇਜੇ ਟੈਕਸਟ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਦਾ ਹੈ।",disc:"ਇਹ ਸਮੱਗਰੀ-ਜੋਖਮ ਮੁਲਾਂਕਣ ਹੈ; ਇਹ ਕਿਸੇ ਵਿਅਕਤੀ, ਸੰਸਥਾ ਜਾਂ ਪੇਸ਼ਕਸ਼ ਨੂੰ ਧੋਖਾਧੜੀ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ ਅਤੇ ਇਹ ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ ਹੈ।",low:"ਘੱਟ ਸਪਸ਼ਟ ਚਿੰਤਾ",verify:"ਜਾਂਚ ਲੋੜੀਂਦੀ",high:"ਕਈ ਚੇਤਾਵਨੀ ਸੰਕੇਤ"}
+};
+let lang="en";
+const examples=[
+"SEBI registered expert. Guaranteed 30% return. Join our VIP Telegram group today. Pay ₹5,000 now to unlock the opportunity. Limited seats!",
+"Learn how diversification works. This educational article explains that investment returns can vary and encourages readers to review official product documents before making decisions.",
+"URGENT! Transfer ₹10,000 within 30 minutes to secure your guaranteed profit. Do not miss this opportunity. Contact us on WhatsApp now."
+];
+
+function applyLang(){
+ const t=i18n[lang];
+ document.getElementById("heroText").textContent=t.hero; document.getElementById("howTitle").textContent=t.how;
+ document.getElementById("s1").textContent=t.s1; document.getElementById("s2").textContent=t.s2; document.getElementById("s3").textContent=t.s3;
+ document.getElementById("checkTitle").textContent=t.check; document.getElementById("checkSub").textContent=t.sub;
+ document.getElementById("message").placeholder=t.ph; document.getElementById("exLabel").textContent=t.try;
+ document.querySelector(".actions .primary").textContent=t.an; document.querySelector(".actions .secondary").textContent=t.cl;
+ document.getElementById("resultTitle").textContent=t.res; document.getElementById("nextTitle").textContent=t.next;
+ document.getElementById("privacy").textContent=t.privacy; document.getElementById("disclaimer").textContent=t.disc;
+}
+document.getElementById("lang").addEventListener("change",e=>{lang=e.target.value;applyLang();});
+
+function loadExample(i){document.getElementById("message").value=examples[i]; analyze();}
+
+function analyze(){
+ const text=document.getElementById("message").value.trim();
+ if(!text){document.getElementById("message").focus();return;}
+ const x=text.toLowerCase(); let flags=[];
+ const add=(title,why)=>flags.push({title,why});
+ if(/guarantee|guaranteed|fixed return|sure profit|100% profit|गारंटीड|गारंटी|ਗਾਰੰਟੀ/.test(x)) add("Guaranteed-return language","A guaranteed or unusually certain return is being presented as a promise.");
+ if(/urgent|today|now|limited|last chance|within \\d+ (minute|hour)|तुरंत|आज|अभी|ਤੁਰੰਤ|ਅੱਜ/.test(x)) add("Urgency / pressure","The message encourages immediate action or creates a limited-time feeling.");
+ if(/pay|payment|transfer|deposit|fee|₹|rs\\.?\\s?\\d|upi|send money|भुगतान|पैसे|ਭੁਗਤਾਨ|ਪੈਸੇ/.test(x)) add("Payment request","The content asks the recipient to send money or pay a fee.");
+ if(/telegram|whatsapp|vip group|secret group|private group/.test(x)) add("Private-group promotion","The content moves the user toward a private messaging group or VIP channel.");
+ if(/sebi|registered|regulator|official|licensed|advisor|adviser/.test(x)) add("Authority claim requiring verification","The message invokes regulatory or professional authority; the claim should be independently verified.");
+ if(/guaranteed|profit|return|double|triple|multibagger|sure shot|पक्का मुनाफा|ਮੁਨਾਫਾ/.test(x) && /buy|join|pay|invest|profit|return/.test(x)) add("Promotional investment language","The content combines investment-related claims with persuasive promotional language.");
+ if(/otp|password|pin|cvv|remote access|anydesk|teamviewer/.test(x)) add("Sensitive-access request","The content mentions credentials, security codes, or remote-access tools. Never share OTPs or passwords.");
+
+ let level=flags.length>=3?"red":flags.length>=1?"yellow":"green";
+ const t=i18n[lang];
+ document.getElementById("level").className="level "+level;
+ document.getElementById("level").textContent=level==="red"?t.high:level==="yellow"?t.verify:t.low;
+ document.getElementById("resultSub").textContent=flags.length+" warning pattern"+(flags.length===1?"":"s")+" detected in the supplied content.";
+ const f=document.getElementById("flags"); f.innerHTML="";
+ if(flags.length===0){f.innerHTML='<div class="flag"><b>No major warning pattern detected</b><p>The supplied text does not contain the main patterns checked by this MVP. That does not prove that the content is safe; verify important claims independently.</p></div>';}
+ else flags.forEach(v=>{const d=document.createElement("div");d.className="flag";d.innerHTML="<b>"+escapeHtml(v.title)+"</b><p>"+escapeHtml(v.why)+"</p>";f.appendChild(d);});
+ const steps=[
+ "Pause before transferring money or sharing sensitive information.",
+ "Independently verify important identity, registration and offer claims using an appropriate official source.",
+ "Do not treat this analysis as investment advice or as proof that a person or offer is fraudulent."
+ ];
+ document.getElementById("nextSteps").innerHTML=steps.map(s=>"<li>"+escapeHtml(s)+"</li>").join("");
+ document.getElementById("result").classList.remove("hidden");
+ document.getElementById("result").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function clearAll(){document.getElementById("message").value="";document.getElementById("result").classList.add("hidden");}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+applyLang();
+</script>
+</body>
+</html>
